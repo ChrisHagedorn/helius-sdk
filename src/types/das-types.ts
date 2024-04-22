@@ -55,31 +55,31 @@ export namespace DAS {
     ids: string[];
   };
 
-// searchAssets
-export interface SearchAssetsRequest {
-  page: number; // starts at 1
-  limit?: number;
-  before?: string;
-  after?: string;
-  creatorAddress?: string;
-  ownerAddress?: string;
-  jsonUri?: string;
-  grouping?: string[];
-  burnt?: boolean;
-  sortBy?: AssetSortingRequest;
-  frozen?: boolean;
-  supplyMint?: string;
-  supply?: number;
-  interface?: string;
-  delegate?: string;
-  ownerType?: OwnershipModel;
-  royaltyAmount?: number;
-  royaltyTarget?: string;
-  royaltyTargetType?: RoyaltyModel;
-  compressible?: boolean;
-  compressed?: boolean;
-  tokenType?: "fungible" | "nonFungible" | "regularNFT" | "compressedNFT" | "all" | (string & {});
-}
+  // searchAssets
+  export interface SearchAssetsRequest {
+    page: number; // starts at 1
+    limit?: number;
+    before?: string;
+    after?: string;
+    creatorAddress?: string;
+    ownerAddress?: string;
+    jsonUri?: string;
+    grouping?: string[];
+    burnt?: boolean;
+    sortBy?: AssetSortingRequest;
+    frozen?: boolean;
+    supplyMint?: string;
+    supply?: number;
+    interface?: string;
+    delegate?: string;
+    ownerType?: OwnershipModel;
+    royaltyAmount?: number;
+    royaltyTarget?: string;
+    royaltyTargetType?: RoyaltyModel;
+    compressible?: boolean;
+    compressed?: boolean;
+    tokenType?: "fungible" | "nonFungible" | "regularNFT" | "compressedNFT" | "all" | (string & {});
+  }
 
   // getAssetsByAuthority
   export type AssetsByAuthorityRequest = {
@@ -97,7 +97,9 @@ export interface SearchAssetsRequest {
     displayOptions?: GetAssetDisplayOptions;
 
   };
-  // getRwaAsset
+  // getRwaAssetByMint
+  // getRwaAssetByAuthority
+  // getRwaAssetByDelegate
   export type GetRwaAssetRequest = {
     id: string;
   };
@@ -292,14 +294,14 @@ export interface SearchAssetsRequest {
     seq: number;
     leaf_id: number;
   }
-  
+
   // Get NFT Editions
   export interface Editions {
     mint?: string;
     edition_address?: string;
     edition?: number;
   }
-  
+
   export interface GetNftEditionsRequest {
     mint?: string;
     page?: number;

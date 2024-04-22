@@ -182,7 +182,7 @@ export class RpcClient {
    * @returns {Promise<DAS.GetRwaAssetResponse>}
    * @throws {Error}
    */
-  async getRwaAsset(
+  async getRwaAssetByMint(
     params: DAS.GetRwaAssetRequest
   ): Promise<DAS.GetRwaAssetResponse> {
     try {
@@ -193,6 +193,71 @@ export class RpcClient {
           jsonrpc: "2.0",
           id: this.id,
           method: "getRwaAccountsByMint",
+          params,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const result = response.data.result;
+      return result as DAS.GetRwaAssetResponse;
+    } catch (error) {
+      throw new Error(`Error in getRwaAsset: ${error}`);
+    }
+  }
+  /**
+   * Get RWA Asset by authority.
+   * @param {DAS.GetRwaAssetRequest} - RWA Auth ID
+   * @returns {Promise<DAS.GetRwaAssetResponse>}
+   * @throws {Error}
+   */
+  async getRwaAssetByAuthority(
+    params: DAS.GetRwaAssetRequest
+  ): Promise<DAS.GetRwaAssetResponse> {
+    try {
+      const url = `${this.connection.rpcEndpoint}`;
+      const response = await axios.post(
+        url,
+        {
+          jsonrpc: "2.0",
+          id: this.id,
+          method: "getRwaAccountsByAuthority",
+          params,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const result = response.data.result;
+      return result as DAS.GetRwaAssetResponse;
+    } catch (error) {
+      throw new Error(`Error in getRwaAsset: ${error}`);
+    }
+  }
+
+  /**
+   * Get RWA Asset by delegate.
+   * @param {DAS.GetRwaAssetRequest} - RWA Delegate ID
+   * @returns {Promise<DAS.GetRwaAssetResponse>}
+   * @throws {Error}
+   */
+  async getRwaAssetByDelegate(
+    params: DAS.GetRwaAssetRequest
+  ): Promise<DAS.GetRwaAssetResponse> {
+    try {
+      const url = `${this.connection.rpcEndpoint}`;
+      const response = await axios.post(
+        url,
+        {
+          jsonrpc: "2.0",
+          id: this.id,
+          method: "getRwaAccountsByDelegate",
           params,
         },
         {
@@ -400,11 +465,11 @@ export class RpcClient {
     }
   }
 
-    /**
-  * Get priority fee estimate
-  * @returns {Promise<GetPriorityFeeEstimateResponse>}
-  * @throws {Error}
-  */
+  /**
+* Get priority fee estimate
+* @returns {Promise<GetPriorityFeeEstimateResponse>}
+* @throws {Error}
+*/
   async getPriorityFeeEstimate(
     params: GetPriorityFeeEstimateRequest
   ): Promise<GetPriorityFeeEstimateResponse> {
@@ -424,7 +489,7 @@ export class RpcClient {
       throw new Error(`Error fetching priority fee estimate: ${error}`);
     }
   }
- 
+
   /**
    * Get information about all the edition NFTs for a specific master NFT
    * @returns {Promise<DAS.GetNftEditionsResponse>}
@@ -436,7 +501,7 @@ export class RpcClient {
     try {
       const url = `${this.connection.rpcEndpoint}`;
       const response = await axios.post(url, {
-        jsonrpc:"2.0",
+        jsonrpc: "2.0",
         id: this.id,
         method: "getNftEditions",
         params: params,
